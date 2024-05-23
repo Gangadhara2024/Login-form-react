@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Signup from "./components/Signup";
+import "./auth-app.scss";
+import { useRef, useState } from "react";
+import Auth from "./components/Auth";
+import Login from "./components/Login";
+import useSelection from "antd/es/table/hooks/useSelection";
 
 function App() {
+  const authRef = useRef(new Auth());
+  const [login, setLogin] = useState(false);
+
+  const toggleForm = () => {
+    setLogin(!login);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="container">
+        {login ? <Login auth={authRef.current} toggleForm={toggleForm} /> : <Signup auth={authRef.current} toggleForm={toggleForm} />}
+      </div>
+    </>
   );
 }
 

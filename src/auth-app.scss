@@ -1,0 +1,14 @@
+.container {
+  border: 1px solid orange;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  .form {
+    width: min(300px, 90vw);
+    box-shadow: 2px 2px 5px #c39a9a;
+    border-radius: 10px;
+    padding: 30px;
+    background-color: rgb(228, 230, 233);
+  }
+}
