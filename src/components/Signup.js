@@ -1,8 +1,10 @@
 import { Alert, Button, Form, Input, Radio } from "antd";
 import { useForm } from "antd/es/form/Form";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Login from "./Login";
 
-const Signup = ({ auth , toggleForm }) => {
+const Signup = ({ auth }) => {
   const [apistatus, setApistatus] = useState("init");
   const [form] = useForm();
 
@@ -23,11 +25,14 @@ const Signup = ({ auth , toggleForm }) => {
       {apistatus === "success" && (
         <Alert type="success" showIcon message="signup success" closable />
       )}
-      {
-        apistatus === "error" && (
-            <Alert type="error" showIcon message="something went wrong..." closable/>
-        )
-      }
+      {apistatus === "error" && (
+        <Alert
+          type="error"
+          showIcon
+          message="something went wrong..."
+          closable
+        />
+      )}
       <Form form={form} onFinish={submitform} layout="vertical">
         <Form.Item
           label="Email"
@@ -79,7 +84,9 @@ const Signup = ({ auth , toggleForm }) => {
           Submit
         </Button>
       </Form>
-      <p>Already Have An Account ?<Button onClick={toggleForm} type="link">Sign In Here</Button></p>
+      <p>
+        Already Have An Account ?<Link to="/Login" className="link"> Sign In Here</Link>
+      </p>
     </div>
   );
 };

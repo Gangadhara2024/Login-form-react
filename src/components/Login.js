@@ -1,7 +1,8 @@
 import { Button, Form, Input, Alert } from "antd";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-const Login = ({auth, toggleForm}) => {
+const Login = ({auth}) => {
     const [apistatus, setApistatus] = useState("init");
 
     
@@ -51,7 +52,7 @@ const Login = ({auth, toggleForm}) => {
           Login
         </Button>
       </Form>
-      <p>Don't Have An Account ?<Button onClick={toggleForm} type="link">Sign Up Here</Button></p>
+      <p>Don't Have An Account ?<Link to="/signup" className="link" > Sign Up Here</Link></p>
     </div>
   );
 };
