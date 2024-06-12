@@ -1,18 +1,21 @@
 import { Alert, Button, Form, Input, Radio } from "antd";
 import { useForm } from "antd/es/form/Form";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Login from "./Login";
 
 const Signup = ({ auth }) => {
   const [apistatus, setApistatus] = useState("init");
   const [form] = useForm();
 
-  const submitform = async (data) => {
+  const onSubmitForm = async (data) => {
     setApistatus("pending");
     const { success } = await auth.signupUser(data);
     setApistatus(success ? "success" : "error");
   };
+
+  // const signupbtn = () => {
+  //   setShowLogin(!showLogin);
+  // };
 
   useEffect(() => {
     if (apistatus === "success") {
@@ -23,51 +26,53 @@ const Signup = ({ auth }) => {
   return (
     <div className="form">
       {apistatus === "success" && (
-        <Alert type="success" showIcon message="signup success" closable />
+        <Alert
+          type="success"
+          showIcon
+          message="signup success login now !"
+          closable
+        />
       )}
       {apistatus === "error" && (
         <Alert
           type="error"
           showIcon
-          message="something went wrong..."
+          message="something went wrong try again....."
           closable
         />
       )}
-      <Form form={form} onFinish={submitform} layout="vertical">
+      <Form onFinish={onSubmitForm} layout="vertical" form={form}>
         <Form.Item
-          label="Email"
           name="email"
-          rules={[
-            { type: "email", message: "please enter valid email" },
-            { required: true, message: "please enter mail" },
-          ]}
+          label="Email"
+          rules={[{ required: true, message: "enter valid mail" }]}
         >
-          <Input placeholder="Enter your email" />
+          <Input placeholder="enter your mail" />
         </Form.Item>
         <Form.Item
-          label="Name"
           name="name"
+          label="Name"
           rules={[{ required: true, message: "please enter name" }]}
         >
-          <Input placeholder="Enter Fullname" />
+          <Input placeholder="enter fullname" />
         </Form.Item>
         <Form.Item
-          label="City"
           name="city"
+          label="City"
           rules={[{ required: true, message: "please enter city" }]}
         >
-          <Input placeholder="Enter City" />
+          <Input placeholder="enter your city" />
         </Form.Item>
         <Form.Item
-          label="Password"
           name="password"
+          label="password"
           rules={[{ required: true, message: "Please enter password" }]}
         >
-          <Input.Password placeholder="password" />
+          <Input.Password placeholder="enter password"></Input.Password>
         </Form.Item>
         <Form.Item
-          label="Enter your Gender"
           name="gender"
+          label="Select your gender"
           rules={[{ required: true, message: "please enter gender" }]}
         >
           <Radio.Group>
@@ -81,11 +86,14 @@ const Signup = ({ auth }) => {
           block
           type="primary"
         >
-          Submit
+          Signup
         </Button>
       </Form>
       <p>
-        Already Have An Account ?<Link to="/Login" className="link"> Sign In Here</Link>
+        Already have an account ?
+        <Link to="/login" className="link">
+          Login here
+        </Link>
       </p>
     </div>
   );

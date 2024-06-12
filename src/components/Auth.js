@@ -25,7 +25,7 @@ class Auth {
       console.log(response.data);
       return { success: true };
     } catch (error) {
-      alert("Login failed");
+      alert("login failed");
       return { success: false };
     }
   }

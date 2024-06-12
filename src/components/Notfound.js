@@ -2,7 +2,7 @@ import { Button, Result } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const Notfound = () => {
+export const Notfound = () => {
   const navigate = useNavigate();
 
   const goToLogin = () => {
@@ -23,5 +23,3 @@ const Notfound = () => {
     </div>
   );
 };
-
-export default Notfound;

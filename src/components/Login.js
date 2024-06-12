@@ -2,16 +2,18 @@ import { Button, Form, Input, Alert } from "antd";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Login = ({auth}) => {
-    const [apistatus, setApistatus] = useState("init");
+const Login = ({ auth }) => {
+  const [apistatus, setApistatus] = useState("init");
 
-    
   const submitform = async (loginInfo) => {
     setApistatus("pending");
     const { success } = await auth.loginUser(loginInfo);
     setApistatus(success ? "success" : "error");
   };
 
+  // const loginbtn = () => {
+  //   setShowLogin(!showLogin);
+  // };
   return (
     <div className="form">
       {apistatus === "success" && (
@@ -25,7 +27,7 @@ const Login = ({auth}) => {
           closable
         />
       )}
-      <Form onFinish={submitform} >
+      <Form onFinish={submitform} layout="vertical">
         <Form.Item
           label="Email"
           name="email"
@@ -52,7 +54,12 @@ const Login = ({auth}) => {
           Login
         </Button>
       </Form>
-      <p>Don't Have An Account ?<Link to="/signup" className="link" > Sign Up Here</Link></p>
+      <p>
+        New user create account ?
+        <Link to="/signup" className="link">
+          signin here
+        </Link>
+      </p>
     </div>
   );
 };

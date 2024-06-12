@@ -1,4 +1,3 @@
-import "./App.css";
 import Signup from "./components/Signup";
 import "./auth-app.scss";
 import { createContext, useRef, useState } from "react";
@@ -6,60 +5,63 @@ import Auth from "./components/Auth";
 import Login from "./components/Login";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
-import Notfound from "./components/Notfound";
+import { Notfound } from "./components/Notfound";
 
-export const themeContext = createContext();
+export const Themecontext = createContext();
 
-function App() {
-  const authRef = useRef(new Auth());
-  // const [login, setLogin] = useState(false);
+const App = () => {
+  // const [showLogin, setShowLogin] = useState(false);
   const [theme, setTheme] = useState("light");
 
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
+  const authref = useRef(new Auth());
 
-  const container =
-    "container " + (theme === "dark" ? "dark-container" : "container");
+  const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
 
-  // const toggleForm = () => {
-  //   setLogin(!login);
-  // };
+  const container = "container " + (theme === "dark" ? "dark-container" : "");
 
   return (
-    <themeContext.Provider value={{ theme, toggleTheme }}>
+    <Themecontext.Provider value={{ theme, toggleTheme }}>
       <Navbar />
-
       <BrowserRouter>
         <Routes>
           <Route
             path="login"
             element={
               <div className={container}>
-                <Login auth={authRef.current} />
+                <Login auth={authref.current} />
               </div>
             }
-          ></Route>
+          />
           <Route
             path="signup"
             element={
               <div className={container}>
-                <Signup auth={authRef.current} />
+                <Signup auth={authref.current} />
               </div>
             }
-          ></Route>
-          <Route path="*" Component={Notfound}></Route>
+          />
+          <Route path="*" element={<Notfound />} />
         </Routes>
       </BrowserRouter>
-    </themeContext.Provider>
+    </Themecontext.Provider>
   );
-  // return (
-  //   <>
-  //     <div className="container">
-  //       {login ? <Login auth={authRef.current} toggleForm={toggleForm} /> : <Signup auth={authRef.current} toggleForm={toggleForm} />}
-  //     </div>
-  //   </>
-  // );
-}
+  //   // return (
+  //   //   <div className="container">
+  //   //     {showLogin ? (
+  //   //       <Login
+  //   //         auth={authref.current}
+  //   //         setShowLogin={setShowLogin}
+  //   //         showLogin={showLogin}
+  //   //       />
+  //   //     ) : (
+  //   //       <Signup
+  //   //         auth={authref.current}
+  //   //         setShowLogin={setShowLogin}
+  //   //         showLogin={showLogin}
+  //   //       />
+  //   //     )}
+  //   //   </div>
+  //   // );
+};
 
 export default App;
