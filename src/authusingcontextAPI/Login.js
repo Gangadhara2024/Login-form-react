@@ -1,21 +1,21 @@
 import { Button, Form, Input, Alert } from "antd";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Themecontext } from "../App";
 
 const Login = ({ auth }) => {
   const [apistatus, setApistatus] = useState("init");
+  const { loginBtn } = useContext(Themecontext);
 
   const submitform = async (loginInfo) => {
     setApistatus("pending");
     const { success } = await auth.loginUser(loginInfo);
     setApistatus(success ? "success" : "error");
   };
-
-  // const loginbtn = () => {
-  //   setShowLogin(!showLogin);
-  // };
   return (
     <div className="form">
+      <h2 className="heading">
+        Login <span>Instagram</span>
+      </h2>
       {apistatus === "success" && (
         <Alert type="success" showIcon message="Login succesfull" closable />
       )}
@@ -54,11 +54,9 @@ const Login = ({ auth }) => {
           Login
         </Button>
       </Form>
-      <p>
+      <p className="link">
         New user create account ?
-        <Link to="/signup" className="link">
-          signin here
-        </Link>
+        <button onClick={loginBtn}>sign-in here</button>
       </p>
     </div>
   );

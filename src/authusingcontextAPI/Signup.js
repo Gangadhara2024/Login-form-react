@@ -1,21 +1,18 @@
 import { Alert, Button, Form, Input, Radio } from "antd";
 import { useForm } from "antd/es/form/Form";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Themecontext } from "../App";
 
 const Signup = ({ auth }) => {
   const [apistatus, setApistatus] = useState("init");
+  const { loginpagebtn } = useContext(Themecontext);
   const [form] = useForm();
 
-  const onSubmitForm = async (data) => {
+  const submitform = async (data) => {
     setApistatus("pending");
     const { success } = await auth.signupUser(data);
     setApistatus(success ? "success" : "error");
   };
-
-  // const signupbtn = () => {
-  //   setShowLogin(!showLogin);
-  // };
 
   useEffect(() => {
     if (apistatus === "success") {
@@ -25,6 +22,9 @@ const Signup = ({ auth }) => {
 
   return (
     <div className="form">
+      <h2 className="heading">
+        Sign up <span>Instagram</span>
+      </h2>
       {apistatus === "success" && (
         <Alert
           type="success"
@@ -41,7 +41,7 @@ const Signup = ({ auth }) => {
           closable
         />
       )}
-      <Form onFinish={onSubmitForm} layout="vertical" form={form}>
+      <Form form={form} onFinish={submitform} layout="vertical">
         <Form.Item
           name="email"
           label="Email"
@@ -88,15 +88,14 @@ const Signup = ({ auth }) => {
         >
           Signup
         </Button>
+        <p className="link">
+          Already have an account ?<button onClick={loginpagebtn}>Login</button>
+        </p>
       </Form>
-      <p>
-        Already have an account ?
-        <Link to="/login" className="link">
-          Login here
-        </Link>
-      </p>
     </div>
   );
 };
 
 export default Signup;
+
+

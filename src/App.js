@@ -1,68 +1,39 @@
-import Signup from "./components/Signup";
 import "./auth-app.scss";
-import { createContext, useRef, useState } from "react";
-import Auth from "./components/Auth";
-import Login from "./components/Login";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Navbar } from "./components/Navbar";
-import { Notfound } from "./components/Notfound";
+import { createContext, useState } from "react";
+import { Navbar } from "./authusingcontextAPI/Navbar";
 
 export const Themecontext = createContext();
 
 const App = () => {
-  // const [showLogin, setShowLogin] = useState(false);
-  const [theme, setTheme] = useState("light");
+  const [signup, setSignup] = useState(true);
+  const [login, setLogin] = useState(false);
 
-  const authref = useRef(new Auth());
-
-  const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
-
-  const container = "container " + (theme === "dark" ? "dark-container" : "");
-
+  const loginpagebtn = () => {
+    setLogin(true);
+    setSignup(false);
+    console.log("signup");
+  };
+  const loginBtn = () => {
+    setSignup(true);
+    setLogin(false);
+    console.log("login");
+  };
   return (
-    <Themecontext.Provider value={{ theme, toggleTheme }}>
-      <Navbar />
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="login"
-            element={
-              <div className={container}>
-                <Login auth={authref.current} />
-              </div>
-              
-            }
-          />
-          <Route
-            path="signup"
-            element={
-              <div className={container}>
-                <Signup auth={authref.current} />
-              </div>
-            }
-          />
-          <Route path="*" element={<Notfound />} />
-        </Routes>
-      </BrowserRouter>
+    <Themecontext.Provider
+      value={{
+        loginpagebtn,
+        loginBtn,
+        signup,
+        login,
+        setSignup,
+        setLogin,
+      }}
+    >
+      <>
+        <Navbar />
+      </>
     </Themecontext.Provider>
   );
-  //   // return (
-  //   //   <div className="container">
-  //   //     {showLogin ? (
-  //   //       <Login
-  //   //         auth={authref.current}
-  //   //         setShowLogin={setShowLogin}
-  //   //         showLogin={showLogin}
-  //   //       />
-  //   //     ) : (
-  //   //       <Signup
-  //   //         auth={authref.current}
-  //   //         setShowLogin={setShowLogin}
-  //   //         showLogin={showLogin}
-  //   //       />
-  //   //     )}
-  //   //   </div>
-  //   // );
 };
 
 export default App;
